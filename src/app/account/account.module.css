@@ -1,0 +1,77 @@
+.form_container {
+  overflow: hidden;
+  font-size: 0.75rem;
+  text-shadow: black 0.1em 0.1em 0.2em;
+
+  background-color: rgb(22, 49, 53);
+  color: white;
+  display: flex;
+  gap: 7%;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+}
+.form_container_global {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 40vw;
+  min-width: 350px;
+  min-height: 800px;
+  height: 60vw;
+  padding: 40px;
+  background-image: url("../assets/icons/cardBackground.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  filter: drop-shadow(0px 0px 10px black);
+}
+@media screen and (min-width: 768px) {
+  .form_container_global > div:first-of-type {
+    /* Estilos para el primer elemento (si es necesario) */
+    display: none;
+  }
+}
+.avatar_desktop {
+  display: none;
+}
+@media screen and (min-width: 768px) {
+  .avatar_desktop {
+    /* Estilos para el primer elemento (si es necesario) */
+    display: block;
+  }
+}
+.input_container {
+  display: flex;
+  flex-direction: column;
+}
+.input {
+  filter: drop-shadow(0px 0px 5px black);
+  color: black;
+  font-size: 0.7rem;
+  width: 25vw;
+  height: 30px;
+  min-width: 200px;
+  padding: 12px 20px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin: 0 0 8px 0;
+}
+.button_container {
+  background-image: url("../assets/icons/inputAccountBackground.png");
+  width: 170px;
+  height: 80px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  filter: drop-shadow(0px 0px 5px black);
+  transition: all 0.5s ease-in-out;
+  text-shadow: black 0.1em 0.1em 0.2em;
+}
