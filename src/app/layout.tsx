@@ -8,10 +8,6 @@ const press_Start_2P = Press_Start_2P({
   subsets: ["latin"],
 });
 
-import "nes.css/css/nes.min.css";
-
-const inter = Inter({ subsets: ["latin"] });
-
 export const metadata: Metadata = {
   title: "Pixies",
   description: "Game Cards",

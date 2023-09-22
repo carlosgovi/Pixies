@@ -1,26 +1,58 @@
 "use client";
 import React from "react";
-import { useEffect, useCallback, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
-import monster1 from "../../assets/monsters/monster1.png";
-import monster2 from "../../assets/monsters/monster2.png";
-import monster3 from "../../assets/monsters/monster3.png";
 import styles from "./styles.module.css";
 import star from "../../assets/icons/star.png";
 import gemFire from "../../assets/icons/gemFire.gif";
 import gemPlant from "../../assets/icons/gemPlant.gif";
 import gemWater from "../../assets/icons/gemWater.gif";
-import { cardBaseStore } from "@/store/cardBaseStore";
-import { Database, Json } from "../../database.types";
-import {
-  Session,
-  createClientComponentClient,
-} from "@supabase/auth-helpers-nextjs";
 import MonsterImg from "./monsterImg";
 import CardModal from "./cardModal";
-
-const Card = ({ data }: any) => {
+interface CardModalProps {
+  atk: number;
+  def: number;
+  stars: number;
+  type: string;
+  rarity: string;
+  monster: number;
+  monster_pick: string;
+  id: number;
+}
+const Card = ({ data }: { data: CardModalProps }) => {
+  const rarityStyles: { [key: string]: string } = {
+    rare: "#3aca0e",
+    ultra_rare: "#8532a3",
+    legendary: "#f0e04ee3",
+    default: "#6e6f6f", //card type comun
+  };
+  const gemImageMap: { [key: string]: any } = {
+    fire: gemFire,
+    plant: gemPlant,
+    water: gemWater,
+    default: gemWater,
+  };
+  const rarityColor = rarityStyles[data?.rarity] || rarityStyles.default;
+  const gemImage = gemImageMap[data?.type] || gemImageMap.default;
   const [modalOpen, setModalOpen] = useState(false);
+  const renderStars = () => {
+    if (data.stars > 0 && data.stars <= 5) {
+      return (
+        <div className={styles.star_conteiner}>
+          {[...Array(data.stars)].map((_, index) => (
+            <Image key={index} className={styles.star} src={star} alt="star" />
+          ))}
+        </div>
+      );
+    } else {
+      return (
+        <div className={styles.star_conteiner}>
+          <div className={styles.star} style={{ height: "20px" }}></div>
+        </div>
+      );
+    }
+  };
+
   return (
     <>
       {modalOpen && (
@@ -30,13 +62,7 @@ const Card = ({ data }: any) => {
         <div
           className={styles.rare_conteiner}
           style={{
-            filter: `drop-shadow(0px 0px 20px ${
-              data.rarity === "rare"
-                ? "#3aca0e"
-                : data.rarity === "ultra_rare"
-                ? "#8532a3"
-                : "#6e6f6f"
-            })`,
+            filter: `drop-shadow(0px 0px 20px ${rarityColor})`,
           }}
         >
           <div onClick={() => setModalOpen(true)} className={styles.card}>
@@ -44,55 +70,25 @@ const Card = ({ data }: any) => {
               <div className={styles.gem_image_container}>
                 <Image
                   className={styles.shadow}
-                  src={
-                    data.type === "fire"
-                      ? gemFire
-                      : data.type === "plant"
-                      ? gemPlant
-                      : data.type === "water"
-                      ? gemWater
-                      : gemWater
-                  }
+                  src={gemImage}
                   width={60}
                   height={60}
                   alt="gem"
                 />
-                <div className={styles.flash}></div>
               </div>
               <div className={styles.progress_stats}>
-                <div
-                  style={{
-                    paddingTop: "35px",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
+                <div className={styles.progress_stats_atk}>
                   ATK{" "}
                   <progress
-                    className="nes-progress is-primary "
-                    style={{
-                      width: "80px",
-                      height: "10px",
-                    }}
+                    className={`${styles.prograss_bar}`}
                     value={data.atk}
                     max="100"
                   ></progress>
                 </div>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
+                <div className={styles.progress_stats_def}>
                   DEF{" "}
                   <progress
-                    className="nes-progress is-success"
-                    style={{
-                      width: "80px",
-                      height: "10px",
-                    }}
+                    className={`${styles.prograss_bar}`}
                     value={data.def}
                     max="100"
                   ></progress>
@@ -102,22 +98,7 @@ const Card = ({ data }: any) => {
 
             <MonsterImg url={data?.monster_pick} size={150} />
 
-            {data.stars > 0 && data.stars <= 5 ? (
-              <div className={styles.star_conteiner}>
-                {[...Array(data.stars)].map((_, index) => (
-                  <Image
-                    key={index}
-                    className={styles.star}
-                    src={star}
-                    alt="star"
-                  />
-                ))}
-              </div>
-            ) : (
-              <div className={styles.star_conteiner}>
-                <div className={styles.star} style={{ height: "20px" }}></div>
-              </div>
-            )}
+            {renderStars()}
           </div>
         </div>
       </div>

@@ -83,10 +83,173 @@
   justify-content: center;
   align-items: center;
 }
+.progress_stats_atk {
+  padding-top: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.progress_stats_def {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.prograss_bar {
+  width: 80px;
+  height: 10px;
+}
 .shadow {
   filter: drop-shadow(0px 0px 5px black);
 }
 .star {
   filter: drop-shadow(0px 0px 5px black);
   width: 30px;
+}
+.modal_conteiner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  transform: translate(-33%, -30%);
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  scale: 1.5;
+  transition: all 0.5s ease-in-out;
+}
+.gem_image_container {
+  transition: all 0.5s ease-in-out;
+}
+.flex_container:hover {
+  scale: 1.1;
+  transition: all 0.5s ease-in-out;
+  animation: alternate;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+  animation-name: reflection;
+}
+@keyframes reflection {
+  0% {
+    filter: drop-shadow(0px 0px 5px black);
+  }
+  50% {
+    filter: drop-shadow(0px 0px 10px black);
+  }
+  100% {
+    filter: drop-shadow(0px 0px 5px black);
+  }
+}
+@media screen and (min-width: 768px) {
+  .flex_container {
+    font-size: 0.75rem;
+  }
+  .flex_container :hover {
+    scale: 1.01;
+  }
+  .rare_conteiner {
+    padding: 10px;
+    border-radius: 5px;
+    background-image: url("../../assets/icons/cardBackground.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  .card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* background-color: #1e4753; */
+    border-radius: 5px;
+    text-shadow: black 0.1em 0.1em 0.2em;
+  }
+  .image {
+    animation: reflection 2s ease-in-out infinite;
+  }
+  @keyframes reflection {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.8; /* Cambia la opacidad para el efecto de brillo */
+      transform: scale(1.2); /* Cambia la escala para el efecto de brillo */
+    }
+  }
+  .monster {
+    filter: drop-shadow(0px 0px 5px black);
+    position: relative;
+    animation: floatAnimation 3s ease-in-out infinite;
+  }
+  @keyframes floatAnimation {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px); /* Altura a la que levita */
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  .type_conteiner {
+    width: 100%;
+    padding-right: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .star_conteiner {
+    padding-bottom: 20%;
+    padding-top: 1%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    /* background-color: #1a5b6c; */
+    overflow: hidden;
+  }
+  .progress_stats {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .shadow {
+    filter: drop-shadow(0px 0px 5px black);
+  }
+  .star {
+    filter: drop-shadow(0px 0px 5px black);
+    width: 30px;
+  }
+  .modal_conteiner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 1;
+    transform: translate(-33%, -30%);
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    scale: 1.5;
+    transition: all 0.5s ease-in-out;
+  }
+  .gem_image_container {
+    transition: all 0.5s ease-in-out;
+  }
+  .gem_image_container:hover {
+    scale: 1.1;
+  }
 }

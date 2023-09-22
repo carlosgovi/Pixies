@@ -1,4 +1,5 @@
 "use client";
+import { useEffect, useState } from "react";
 import { Auth } from "@supabase/auth-ui-react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "./database.types";
@@ -6,6 +7,16 @@ import style from "./auth.module.css";
 
 export default function AuthForm() {
   const supabase = createClientComponentClient<Database>();
+
+  const [linkMagicRetorno, setLinkMagicRetorno] = useState("");
+  useEffect(() => {
+    const environment = process.env.ENVIRONMENT;
+    if (environment == "production") {
+      setLinkMagicRetorno("https://pixiearena.site/auth/callback");
+    } else {
+      setLinkMagicRetorno("http://localhost:3000/auth/callback");
+    }
+  }, [linkMagicRetorno]);
 
   return (
     <div className={style.form_container}>
@@ -38,7 +49,7 @@ export default function AuthForm() {
           }}
           showLinks={false}
           providers={[]}
-          redirectTo="http://localhost:3000/auth/callback"
+          redirectTo={linkMagicRetorno}
         />
       </div>
     </div>

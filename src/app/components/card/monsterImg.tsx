@@ -45,7 +45,7 @@ export default function MonsterImg({
           width={size}
           height={size}
           src={monsterUrl}
-          alt="Avatar"
+          alt="Monster"
           className={styles.monster}
           style={{
             width: size,

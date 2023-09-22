@@ -1,4 +1,3 @@
-import React from "react";
 import Card from "../card";
 import styles from "./styles.module.css";
 
@@ -12,14 +11,14 @@ const ListCard = ({
     type: string;
     rarity: string;
     monster: number;
+    monster_pick: string;
     id: number;
   }[];
 }) => {
-  const [modalOpen, setModalOpen] = React.useState(false);
   return (
     <div className={styles.flex_container}>
       {data?.map((data) => (
-        <Card onClick={() => setModalOpen(true)} key={data.id} data={data} />
+        <Card key={data.id} data={data} />
       ))}
     </div>
   );
