@@ -6,17 +6,8 @@ import { Database } from "./database.types";
 import style from "./auth.module.css";
 
 export default function AuthForm() {
+  const sendEmail = process.env.URL_SEND_EMAIL;
   const supabase = createClientComponentClient<Database>();
-
-  const [linkMagicRetorno, setLinkMagicRetorno] = useState("");
-  useEffect(() => {
-    const environment = process.env.ENVIRONMENT;
-    if (environment == "production") {
-      return setLinkMagicRetorno("https://pixiearena.site/auth/callback");
-    } else {
-      setLinkMagicRetorno("http://localhost:3000/auth/callback");
-    }
-  }, [linkMagicRetorno]);
 
   return (
     <div className={style.form_container}>
@@ -49,7 +40,7 @@ export default function AuthForm() {
           }}
           showLinks={false}
           providers={[]}
-          redirectTo={linkMagicRetorno}
+          redirectTo={sendEmail}
         />
       </div>
     </div>
