@@ -6,7 +6,7 @@ import { Database } from "./database.types";
 import style from "./auth.module.css";
 
 export default function AuthForm() {
-  const sendEmail = process.env.URL_SEND_EMAIL;
+  const sendEmail = "https://pixiearena.site/auth/callback";
   const supabase = createClientComponentClient<Database>();
 
   return (
