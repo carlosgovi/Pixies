@@ -12,7 +12,7 @@ export default function AuthForm() {
   useEffect(() => {
     const environment = process.env.ENVIRONMENT;
     if (environment == "production") {
-      setLinkMagicRetorno("https://pixiearena.site/auth/callback");
+      return setLinkMagicRetorno("https://pixiearena.site/auth/callback");
     } else {
       setLinkMagicRetorno("http://localhost:3000/auth/callback");
     }
