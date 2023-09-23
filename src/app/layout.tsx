@@ -2,8 +2,6 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Press_Start_2P } from "next/font/google";
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
 
 const press_Start_2P = Press_Start_2P({
   weight: "400",

@@ -1,9 +1,13 @@
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { type NextRequest, NextResponse } from "next/server";
-
+import type { Database } from "../../database.types";
+export const dynamic = "force-dynamic";
 export async function POST(req: NextRequest) {
-  const supabase = createRouteHandlerClient({ cookies });
+  const cookieStore = cookies();
+  const supabase = createRouteHandlerClient<Database>({
+    cookies: () => cookieStore,
+  });
 
   // Check if we have a session
   const {
