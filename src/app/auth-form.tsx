@@ -1,5 +1,4 @@
 "use client";
-import { useEffect, useState } from "react";
 import { Auth } from "@supabase/auth-ui-react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "./database.types";

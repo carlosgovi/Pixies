@@ -34,9 +34,18 @@ export async function GET(req: NextRequest) {
           //si no esxisten cards ingreso en la base de datos un json con una card por defecto
 
           //generar valor en string random de "fire" o "water" o "plant"
-          const typeRamdom = Math.floor(Math.random() * 3);
-          const type =
-            typeRamdom === 0 ? "fire" : typeRamdom === 1 ? "water" : "plant";
+          const types = () => {
+            const typeRamdom = Math.floor(Math.random() * 3);
+            const type =
+              typeRamdom === 0 ? "fire" : typeRamdom === 1 ? "water" : "plant";
+            return type;
+          };
+
+          const rarities = () => {
+            const rarityRamdom = Math.floor(Math.random() * 2);
+            const rarity = rarityRamdom === 0 ? "normal" : "rare";
+            return rarity;
+          };
           await supabase.from("profiles").upsert({
             id: session.user.id as string,
             cards: [
@@ -44,9 +53,9 @@ export async function GET(req: NextRequest) {
                 id: 1,
                 atk: (Math.floor(Math.random() * 40) + 1).toString(),
                 def: (Math.floor(Math.random() * 40) + 1).toString(),
-                stars: 0,
-                type: type,
-                rarity: "normal",
+                stars: 1,
+                type: types(),
+                rarity: rarities(),
                 monster_pick: "monster_1.gif",
               },
               {
@@ -54,8 +63,8 @@ export async function GET(req: NextRequest) {
                 atk: (Math.floor(Math.random() * 40) + 1).toString(),
                 def: (Math.floor(Math.random() * 40) + 1).toString(),
                 stars: 2,
-                type: type,
-                rarity: "rare",
+                type: types(),
+                rarity: rarities(),
                 monster_pick: "monster_2.gif",
               },
               {
@@ -63,14 +72,14 @@ export async function GET(req: NextRequest) {
                 atk: (Math.floor(Math.random() * 40) + 1).toString(),
                 def: (Math.floor(Math.random() * 40) + 1).toString(),
                 stars: 4,
-                type: type,
-                rarity: "ultra_rare",
+                type: types(),
+                rarity: rarities(),
                 monster_pick: "monster_3.gif",
               },
             ],
           });
 
-          console.log("Monster otrogado a user nuevo");
+          console.log("Monster cards created for user");
         }
       }
     } catch (error) {

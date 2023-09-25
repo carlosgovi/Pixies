@@ -10,6 +10,7 @@ import {
   Session,
   createClientComponentClient,
 } from "@supabase/auth-helpers-nextjs";
+import { getProfileDB } from "../lib/db/navInventaryDB";
 import { Profiler } from "inspector";
 
 const press_Start_2P = Press_Start_2P({
@@ -114,7 +115,7 @@ export default function NavInventory({ session }: { session: Session | null }) {
     try {
       setLoading(true);
 
-      let { data, error, status } = await supabase
+      /* let { data, error, status } = await supabase
         .from("profiles")
         .select(
           `full_name, username,love_potions,star_potions,coins,avatar_url,cards`
@@ -124,7 +125,8 @@ export default function NavInventory({ session }: { session: Session | null }) {
 
       if (error && status !== 406) {
         throw error;
-      }
+      } */
+      const { data } = await getProfileDB(user);
 
       if (data) {
         setUsername(data.username);
@@ -139,7 +141,7 @@ export default function NavInventory({ session }: { session: Session | null }) {
     } finally {
       setLoading(false);
     }
-  }, [supabase, user?.id]);
+  }, [user]);
 
   useEffect(() => {
     getProfile();

@@ -1,20 +1,15 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
-import { Database } from "../database.types";
 import Avatar from "../components/avatar/avatar";
-import {
-  Session,
-  createClientComponentClient,
-} from "@supabase/auth-helpers-nextjs";
+import { Session } from "@supabase/auth-helpers-nextjs";
 import style from "./account.module.css";
 import Menu from "../components/menu";
+import { getDataProfile, uploadDataProfile } from "../lib/db/accound-formDB";
 
 export default function AccountForm({ session }: { session: Session | null }) {
-  const supabase = createClientComponentClient<Database>();
   const [loading, setLoading] = useState(true);
   const [fullname, setFullname] = useState<string | null>(null);
   const [username, setUsername] = useState<string | null>(null);
-
   const [avatar_url, setAvatarUrl] = useState<string | null>(null);
   const user = session?.user;
 
@@ -22,16 +17,7 @@ export default function AccountForm({ session }: { session: Session | null }) {
     try {
       setLoading(true);
 
-      let { data, error, status } = await supabase
-        .from("profiles")
-        .select(`full_name, username,  avatar_url`)
-        .eq("id", user?.id as string)
-        .single();
-
-      if (error && status !== 406) {
-        throw error;
-      }
-
+      let { data } = await getDataProfile(user);
       if (data) {
         setFullname(data.full_name);
         setUsername(data.username);
@@ -42,38 +28,31 @@ export default function AccountForm({ session }: { session: Session | null }) {
     } finally {
       setLoading(false);
     }
-  }, [user, supabase]);
+  }, [user]);
 
   useEffect(() => {
     getProfile();
   }, [user, getProfile]);
 
   async function updateProfile({
+    fullname,
     username,
     avatar_url,
   }: {
-    username: string | null;
     fullname: string | null;
+    username: string | null;
     avatar_url: string | null;
   }) {
     try {
       setLoading(true);
-
-      let { error } = await supabase.from("profiles").upsert({
-        id: user?.id as string,
-
-        full_name: fullname,
-
+      await uploadDataProfile({
+        user,
+        fullname,
         username,
-
         avatar_url,
-
-        updated_at: new Date().toISOString(),
       });
-      if (error) throw error;
-      alert("Profile updated!");
     } catch (error) {
-      alert("Error updating the data!");
+      alert("Error updating the data! ");
     } finally {
       setLoading(false);
     }
@@ -88,9 +67,9 @@ export default function AccountForm({ session }: { session: Session | null }) {
           url={avatar_url}
           size={375}
           editVisible={true}
-          onUpload={(url) => {
-            setAvatarUrl(url);
-            updateProfile({ fullname, username, avatar_url: url });
+          onUpload={(urlavatar) => {
+            setAvatarUrl(urlavatar);
+            updateProfile({ fullname, username, avatar_url: urlavatar });
           }}
         />
       </div>
@@ -101,8 +80,8 @@ export default function AccountForm({ session }: { session: Session | null }) {
           size={170}
           editVisible={true}
           onUpload={(url) => {
-            setAvatarUrl(url);
             updateProfile({ fullname, username, avatar_url: url });
+            setAvatarUrl(url);
           }}
         />
         <div className={style.input_container}>
