@@ -63,7 +63,7 @@ export default function NavInventory({ session }: { session: Session | null }) {
       <div className=" with-title is-centered">
         <ListCard
           data={profile.cards}
-          implementModal={true}
+          implementModal={false}
           onSelectCard={() => {}}
         />
       </div>
