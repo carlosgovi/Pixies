@@ -1,0 +1,54 @@
+.modal_conteiner {
+  position: fixed;
+  z-index: 1;
+  width: 100vw;
+
+  height: 100vh;
+  top: 0;
+  left: 0;
+  transition: all 1.5s ease-in-out;
+
+  background-color: rgba(2, 2, 2, 0.444);
+}
+.modal_card_list {
+  transition: all 1s ease-in-out;
+}
+.modal_header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 35vh;
+  background-color: rgba(22, 49, 53, 0.673);
+}
+.modal_cards_list_selected_conteiner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 1s ease-in-out;
+  position: absolute;
+  z-index: 22;
+}
+.modal_cards_list_selected {
+  z-index: 22;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  transition: all 1s ease-in-out;
+  width: 70vw;
+  position: absolute;
+
+  /* Para mover a el centro */
+
+  /* width: 100vw;
+  height: 70vh; */
+}
+.modal_buttons_conteiner {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+  width: 100vw;
+}

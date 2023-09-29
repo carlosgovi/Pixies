@@ -11,6 +11,7 @@ export default function AccountForm({ session }: { session: Session | null }) {
   const [fullname, setFullname] = useState<string | null>(null);
   const [username, setUsername] = useState<string | null>(null);
   const [avatar_url, setAvatarUrl] = useState<string | null>(null);
+  const [isErrorVisible, setIsErrorVisible] = useState(false);
   const user = session?.user;
 
   const getProfile = useCallback(async () => {
@@ -57,6 +58,15 @@ export default function AccountForm({ session }: { session: Session | null }) {
       setLoading(false);
     }
   }
+  const charactersNoMoreThan8 = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
+    if (inputValue.length <= 8) {
+      setUsername(inputValue);
+      setIsErrorVisible(false); // Oculta el mensaje de error si es visible
+    } else {
+      setIsErrorVisible(true); // Muestra el mensaje de error si la longitud es mayor a 8
+    }
+  };
 
   return (
     <div className={style.form_container}>
@@ -110,16 +120,22 @@ export default function AccountForm({ session }: { session: Session | null }) {
         </div>
         <div className={style.input_container}>
           <label style={{ margin: "0" }} htmlFor="username">
-            Avatar
+            Usuario
           </label>
           <input
             className={style.input}
             id="username"
             type="text"
             value={username || ""}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={charactersNoMoreThan8}
+            /* maxLength={8} */
           />
         </div>
+        {isErrorVisible && (
+          <div className={style.error_message}>
+            El nombre de usuario no puede tener más de 8 caracteres.
+          </div>
+        )}
 
         <div className={style.button_container}>
           <button

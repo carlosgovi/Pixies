@@ -1,0 +1,115 @@
+.form_container {
+  overflow: hidden;
+  font-size: 0.75rem;
+  text-shadow: black 0.1em 0.1em 0.2em;
+  background-color: rgb(22, 49, 53);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 30vh;
+}
+.form_container_global {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 40vw;
+  min-width: 350px;
+  min-height: 200px;
+  height: 30vw;
+  padding: 40px;
+  background-image: url("../assets/icons/navBarBackground.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  filter: drop-shadow(0px 0px 10px black);
+}
+.form_title {
+  margin: 5px;
+  font-size: 1rem;
+  text-align: left;
+}
+.input_container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.input {
+  filter: drop-shadow(0px 0px 5px black);
+  color: black;
+  font-size: 0.8rem;
+  width: 25vw;
+  height: 50px;
+  min-width: 200px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: #ffffff67;
+}
+.button_conteiner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 50px;
+  filter: drop-shadow(0px 0px 5px black);
+}
+
+.button_container {
+  background-image: url("../assets/icons/inputAccountBackground.png");
+  width: 170px;
+  height: 80px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  filter: drop-shadow(0px 0px 5px black);
+  transition: all 0.5s ease-in-out;
+  text-shadow: black 0.1em 0.1em 0.2em;
+}
+.user_container {
+  background-color: rgb(22, 49, 53);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 60px;
+}
+.user {
+  background-image: url("../assets/icons/inputAccountBackground.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  height: 110px;
+  gap: 10px;
+  filter: drop-shadow(0px 0px 5px black);
+  position: relative;
+}
+.avatar_container {
+  background-color: rgba(255, 255, 255, 0.373);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0px 0px 5px black);
+  position: relative;
+  right: 5%;
+}
+.username {
+  color: rgb(255, 255, 255);
+  font-size: 1.2rem;
+  text-shadow: black 0.1em 0.5em 0.3em;
+  position: relative;
+  right: 5%;
+}

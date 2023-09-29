@@ -9,6 +9,7 @@ import gemPlant from "../../assets/icons/gemPlant.gif";
 import gemWater from "../../assets/icons/gemWater.gif";
 import MonsterImg from "./monsterImg";
 import CardModal from "./cardModal";
+import PixelArtProgressBar from "@/app/ui/buttons/PixelArtProgressBar";
 interface CardModalProps {
   atk: number;
   def: number;
@@ -19,7 +20,13 @@ interface CardModalProps {
   monster_pick: string;
   id: number;
 }
-const Card = ({ data }: { data: CardModalProps }) => {
+const Card = ({
+  data,
+  implementModal,
+}: {
+  data: CardModalProps;
+  implementModal: boolean;
+}) => {
   const rarityStyles: { [key: string]: string } = {
     rare: "#3aca0e",
     ultra_rare: "#8532a3",
@@ -30,7 +37,7 @@ const Card = ({ data }: { data: CardModalProps }) => {
     fire: gemFire,
     plant: gemPlant,
     water: gemWater,
-    default: gemWater,
+    default: gemWater, //default value is water
   };
   const rarityColor = rarityStyles[data?.rarity] || rarityStyles.default;
   const gemImage = gemImageMap[data?.type] || gemImageMap.default;
@@ -54,55 +61,49 @@ const Card = ({ data }: { data: CardModalProps }) => {
   };
 
   return (
-    <>
-      {modalOpen && (
-        <CardModal data={data} onClose={() => setModalOpen(false)} />
+    <div className={styles.flex_container}>
+      {implementModal && (
+        <div>
+          {modalOpen && (
+            <CardModal data={data} onClose={() => setModalOpen(false)} />
+          )}
+        </div>
       )}
-      <div className={styles.flex_container}>
-        <div
-          className={styles.rare_conteiner}
-          style={{
-            filter: `drop-shadow(0px 0px 20px ${rarityColor})`,
-          }}
-        >
-          <div onClick={() => setModalOpen(true)} className={styles.card}>
-            <div className={styles.type_conteiner}>
-              <div className={styles.gem_image_container}>
-                <Image
-                  className={styles.shadow}
-                  src={gemImage}
-                  width={60}
-                  height={60}
-                  alt="gem"
-                />
+      <div
+        className={styles.rare_conteiner}
+        style={{
+          filter: `drop-shadow(0px 0px 20px ${rarityColor})`,
+        }}
+      >
+        <div onClick={() => setModalOpen(true)} className={styles.card}>
+          <div className={styles.type_conteiner}>
+            <div className={styles.gem_image_container}>
+              <Image
+                className={styles.shadow}
+                src={gemImage}
+                width={60}
+                height={60}
+                alt="gem"
+              />
+            </div>
+            <div className={styles.progress_stats}>
+              <div className={styles.progress_stats_atk}>
+                ATK
+                <PixelArtProgressBar progress={data.atk} color={"#e1ad1e"} />
               </div>
-              <div className={styles.progress_stats}>
-                <div className={styles.progress_stats_atk}>
-                  ATK{" "}
-                  <progress
-                    className={`${styles.prograss_bar}`}
-                    value={data.atk}
-                    max="100"
-                  ></progress>
-                </div>
-                <div className={styles.progress_stats_def}>
-                  DEF{" "}
-                  <progress
-                    className={`${styles.prograss_bar}`}
-                    value={data.def}
-                    max="100"
-                  ></progress>
-                </div>
+              <div className={styles.progress_stats_def}>
+                DEF
+                <PixelArtProgressBar progress={data.def} color={"#2a80c6"} />
               </div>
             </div>
-
-            <MonsterImg url={data?.monster_pick} size={150} />
-
-            {renderStars()}
           </div>
+
+          <MonsterImg url={data?.monster_pick} size={135} />
+
+          {renderStars()}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

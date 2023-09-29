@@ -28,7 +28,7 @@ const Menu = () => {
           <Link href="/inventory">Inventario</Link>
         </li>
         <li className={styles.menu_item}>
-          <Link href="/trader">Intercambio</Link>
+          <Link href="/exchange">Intercambio</Link>
         </li>
 
         <li className={styles.menu_item}>Combinar</li>

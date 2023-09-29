@@ -61,6 +61,11 @@
   box-sizing: border-box;
   margin: 0 0 8px 0;
 }
+.error_message {
+  font-size: 0.4rem;
+  color: red;
+  text-align: center;
+}
 .button_container {
   background-image: url("../assets/icons/inputAccountBackground.png");
   width: 170px;

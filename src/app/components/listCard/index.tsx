@@ -3,6 +3,8 @@ import styles from "./styles.module.css";
 
 const ListCard = ({
   data,
+  implementModal,
+  onSelectCard,
 }: {
   data: {
     atk: number;
@@ -14,11 +16,15 @@ const ListCard = ({
     monster_pick: string;
     id: number;
   }[];
+  implementModal: boolean;
+  onSelectCard: (id: {}) => void;
 }) => {
   return (
     <div className={styles.flex_container}>
       {data?.map((data) => (
-        <Card key={data.id} data={data} />
+        <div onClick={() => onSelectCard(data)} key={data.id}>
+          <Card key={data.id} data={data} implementModal={implementModal} />
+        </div>
       ))}
     </div>
   );

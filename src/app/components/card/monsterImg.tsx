@@ -1,11 +1,10 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Database } from "../../database.types";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import Image from "next/image";
-type Profiles = Database["public"]["Tables"]["profiles"]["Row"];
 import styles from "./styles.module.css";
-
+import { getImgMosterDB } from "@/app/lib/db/monsterImgDB";
+type Profiles = Database["public"]["Tables"]["profiles"]["Row"];
 export default function MonsterImg({
   url,
   size,
@@ -13,22 +12,14 @@ export default function MonsterImg({
   url: Profiles["avatar_url"];
   size: number;
 }) {
-  const supabase = createClientComponentClient<Database>();
   const [monsterUrl, setMonsterUrl] = useState<Profiles["avatar_url"]>("");
+  //add loading state in future
   const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
     async function downloadImage(path: string) {
       try {
-        const { data, error } = await supabase.storage
-          .from("monsters")
-
-          .download(path);
-        if (error) {
-          throw error;
-        }
-
-        const url = URL.createObjectURL(data);
+        const url = await getImgMosterDB(path);
         setMonsterUrl(url);
       } catch (error) {
         console.log("Error downloading image: ", error);
@@ -36,7 +27,7 @@ export default function MonsterImg({
     }
 
     if (url) downloadImage(url);
-  }, [url, supabase]);
+  }, [url]);
 
   return (
     <>
