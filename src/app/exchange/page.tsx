@@ -4,7 +4,7 @@ import { Database } from "../database.types";
 import SelectUser from "./selectUser";
 import { redirect } from "next/navigation";
 
-const dynamic = "force-dynamic";
+export const dynamic = "force-dynamic";
 export default async function Account() {
   const supabase = createServerComponentClient<Database>({ cookies });
 

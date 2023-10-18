@@ -5,11 +5,11 @@ import type { Database } from "../../database.types";
 
 export const dynamic = "force-dynamic";
 export async function POST(req: NextRequest) {
+  const cookieStore = cookies();
   const { searchParams } = new URL(req.url);
   const userid = searchParams.get("userid");
   const cards = searchParams.get("cards");
-  const cookieStore = cookies();
-  const supabase = createRouteHandlerClient({
+  const supabase = createRouteHandlerClient<Database>({
     cookies: () => cookieStore,
   });
   // Check if we have a session
