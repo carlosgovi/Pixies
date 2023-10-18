@@ -1,13 +1,11 @@
 "use client";
-import { useEffect, useCallback, useState } from "react";
+import { useEffect, useState } from "react";
 import React from "react";
 import { Session } from "@supabase/auth-helpers-nextjs";
 import style from "./modalSelectCards.module.css";
 import ListCard from "../components/listCard";
-import { getProfileDB } from "../lib/db/navInventaryDB";
+import useGetProfile from "../hooks/useGetProfile";
 import Card from "../components/card";
-import Image from "next/image";
-import buttonRed from "../assets/icons/buttonRed.gif";
 import PixelArtButton from "../ui/buttons/buttonPixel";
 
 interface Profiles {
@@ -26,31 +24,16 @@ const ModalSelectCards = ({
   profile: Profiles;
   onCloseModal: () => void;
 }) => {
-  const [loading, setLoading] = useState(false);
-  const [profileUser, setProfileUser] = useState<Profiles>({} as Profiles);
   const [cardsUser, setCardsUser] = useState([] as any);
   const [cardsSelecteds, setCardsSelecteds] = useState([] as any);
-
-  console.log("las Session", session);
   const user = session?.user;
-  const getProfile = useCallback(async () => {
-    try {
-      setLoading(true);
-      const { data } = await getProfileDB(user);
+  const { data, isLoading } = useGetProfile(user?.id);
 
-      if (data) {
-        setCardsUser(data.cards as any);
-      }
-    } catch (error) {
-      alert("Error loading user data!");
-    } finally {
-      setLoading(false);
-    }
-  }, [user]);
   useEffect(() => {
-    getProfile();
-  }, [getProfile, user]);
-  console.log("lista de cartas seleccionadas", cardsSelecteds);
+    if (data) {
+      setCardsUser(data.cards as any);
+    }
+  }, [data]);
 
   return (
     <>
@@ -78,17 +61,35 @@ const ModalSelectCards = ({
             <div
               onClick={() => {
                 setCardsSelecteds([]);
-                getProfile();
+
                 onCloseModal();
               }}
             >
-              <PixelArtButton color="rojo" />
+              <PixelArtButton color="rojo" size={80} />
             </div>
             <div>
-              <PixelArtButton color="verde" />
+              <PixelArtButton color="verde" size={80} />
             </div>
           </div>
-
+          <div>
+            <form
+              action={
+                `/exchange/cards-selecteds?cards=${JSON.stringify(
+                  cardsSelecteds
+                )}` + `&userid=${profile.id}`
+              }
+              method="post"
+            >
+              <button
+                style={{ textShadow: "black 0.1em 0.1em 0.2em" }}
+                className="button block"
+                type="submit"
+              >
+                :::Test Form::
+              </button>
+            </form>
+          </div>
+          {isLoading && <div className={style.modal_loader}>loading...</div>}
           <div className={style.modal_cards_list}>
             <ListCard
               data={cardsUser}

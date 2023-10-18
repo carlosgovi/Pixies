@@ -1,7 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import { Press_Start_2P } from "next/font/google";
+import { ReactQueryProvider } from "./ReactQueryProvider";
 
 const press_Start_2P = Press_Start_2P({
   weight: "400",
@@ -19,8 +19,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={press_Start_2P.className}>{children}</body>
-    </html>
+    <ReactQueryProvider>
+      <html lang="en">
+        <body className={press_Start_2P.className}>{children}</body>
+      </html>
+    </ReactQueryProvider>
   );
 }

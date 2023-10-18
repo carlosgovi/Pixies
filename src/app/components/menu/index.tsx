@@ -9,6 +9,7 @@ const Menu = () => {
   function handleMenu() {
     setOpen(!open);
   }
+
   return (
     <div
       style={{ transform: open ? "translateX(0)" : "translateX(100%)" }}
@@ -16,7 +17,9 @@ const Menu = () => {
     >
       <div
         className={styles.flap}
-        style={{ transform: open ? "rotate(180deg)" : "" }}
+        style={{
+          transform: open ? "rotate(180deg)" : "",
+        }}
         onClick={handleMenu}
       ></div>
 

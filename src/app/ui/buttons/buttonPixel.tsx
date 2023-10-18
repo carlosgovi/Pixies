@@ -1,12 +1,13 @@
 import React from "react";
-import styles from "./buttonPixel.module.css";
 import Image from "next/image";
 import buttonBlue from "../../assets/icons/buttonBlue.gif";
 import buttonRed from "../../assets/icons/buttonRed.gif";
 import buttonGreen from "../../assets/icons/buttonGreen.gif";
-const PixelArtButton = ({ color }: { color: string }) => {
+const PixelArtButton = ({ color, size }: { color: string; size: number }) => {
   return (
     <Image
+      height={size}
+      width={size}
       src={
         color == "azul"
           ? buttonBlue
@@ -17,9 +18,6 @@ const PixelArtButton = ({ color }: { color: string }) => {
           : buttonBlue
       }
       alt="buscar"
-      height={40}
-      width={70}
-      className={styles.button}
     />
   );
 };

@@ -2,10 +2,9 @@
 import ListCard from "../components/listCard";
 import NavBar from "../components/navBar";
 import Menu from "../components/menu";
-import { Press_Start_2P } from "next/font/google";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Session } from "@supabase/auth-helpers-nextjs";
-import { getProfileDB } from "../lib/db/navInventaryDB";
+import useGetUserProfile from "../hooks/useGetProfile";
 
 interface Perfile {
   username: string | null;
@@ -17,37 +16,24 @@ interface Perfile {
   cards: [];
 }
 export default function NavInventory({ session }: { session: Session | null }) {
-  const [loading, setLoading] = useState(true);
   const [profile, setProfile] = useState<Perfile>({} as Perfile);
 
   const user = session?.user;
-
-  const getProfile = useCallback(async () => {
-    try {
-      setLoading(true);
-      const { data } = await getProfileDB(user);
-
-      if (data) {
-        setProfile({
-          username: data.username,
-          full_name: data.full_name,
-          avatar_url: data.avatar_url,
-          love_potions: data.love_potions,
-          star_potions: data.star_potions,
-          coins: data.coins,
-          cards: data.cards as any,
-        });
-      }
-    } catch (error) {
-      alert("Error loading user data!");
-    } finally {
-      setLoading(false);
-    }
-  }, [user]);
+  const { data } = useGetUserProfile(user?.id);
 
   useEffect(() => {
-    getProfile();
-  }, [user, getProfile]);
+    if (data) {
+      setProfile({
+        username: data.username,
+        full_name: data.full_name,
+        avatar_url: data.avatar_url,
+        love_potions: data.love_potions,
+        star_potions: data.star_potions,
+        coins: data.coins,
+        cards: data.cards as any,
+      });
+    }
+  }, [data]);
 
   return (
     <div style={{ backgroundColor: "#163135" }}>

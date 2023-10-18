@@ -1,8 +1,7 @@
 .button {
   cursor: pointer;
   filter: drop-shadow(2px 2px 4px black);
-  width: 70px;
-  height: 40px;
+
   position: fixed;
   z-index: 33;
 }

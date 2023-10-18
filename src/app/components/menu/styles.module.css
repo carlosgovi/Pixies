@@ -35,8 +35,9 @@
   position: absolute;
   left: -40px;
   top: 45px;
-  transition: all 0.5s ease-in-out;
+  transition: all 0.7s ease-in-out;
 }
+
 .flap:hover {
   scale: 1.1;
 }

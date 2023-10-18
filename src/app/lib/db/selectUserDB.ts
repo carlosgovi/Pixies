@@ -8,7 +8,6 @@ const supabase = createClientComponentClient<Database>();
 
 async function getDataProfilesByUserNameDB(username: string) {
   username = username?.trim().toLowerCase();
-  console.log("usernameeeeee", username);
 
   const { data, error, status } = await supabase.from("profiles").select("*");
   console.log("Los datos que trae la DB", data);
@@ -25,4 +24,15 @@ async function getDataProfilesByUserNameDB(username: string) {
 
   return { data: usersFilters };
 }
-export { getDataProfilesByUserNameDB };
+async function getTraderds(userId: string) {
+  const { data, error } = await supabase
+    .from("traders_cards")
+    .select("*")
+    .or(`user_1.eq.${userId},user_2.eq.${userId}`);
+
+  if (error) {
+    console.log(error);
+  }
+  return { data };
+}
+export { getDataProfilesByUserNameDB, getTraderds };
