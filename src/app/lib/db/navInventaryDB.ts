@@ -10,7 +10,7 @@ async function getProfileDB(user: string | undefined) {
   let { data, error, status } = await supabase
     .from("profiles")
     .select(
-      `full_name, username,love_potions,star_potions,coins,avatar_url,cards`
+      `id,full_name, username,love_potions,star_potions,coins,avatar_url,cards`
     )
     .eq("id", user as string)
     .single();

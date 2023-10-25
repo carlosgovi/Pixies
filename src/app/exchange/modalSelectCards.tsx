@@ -18,8 +18,10 @@ interface Profiles {
 const ModalSelectCards = ({
   session,
   profile,
+  tradeId,
   onCloseModal,
 }: {
+  tradeId: string | null;
   session: Session | null;
   profile: Profiles;
   onCloseModal: () => void;
@@ -34,6 +36,7 @@ const ModalSelectCards = ({
       setCardsUser(data.cards as any);
     }
   }, [data]);
+  console.log("TEST_____>", session?.user.id, profile.id);
 
   return (
     <>
@@ -68,27 +71,31 @@ const ModalSelectCards = ({
               <PixelArtButton color="rojo" size={80} />
             </div>
             <div>
-              <PixelArtButton color="verde" size={80} />
+              <div>
+                <form
+                  action={
+                    session?.user.id && profile.id === undefined
+                      ? `/exchange/card-selecteds-trade-notification?cards=${JSON.stringify(
+                          cardsSelecteds
+                        )}&tradeid=${tradeId}`
+                      : `/exchange/cards-selecteds?cards=${JSON.stringify(
+                          cardsSelecteds
+                        )}&userid=${profile.id}`
+                  }
+                  method="post"
+                >
+                  <button
+                    style={{ textShadow: "black 0.1em 0.1em 0.2em" }}
+                    className="button block"
+                    type="submit"
+                  >
+                    <PixelArtButton color="verde" size={80} />
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
-          <div>
-            <form
-              action={
-                `/exchange/cards-selecteds?cards=${JSON.stringify(
-                  cardsSelecteds
-                )}` + `&userid=${profile.id}`
-              }
-              method="post"
-            >
-              <button
-                style={{ textShadow: "black 0.1em 0.1em 0.2em" }}
-                className="button block"
-                type="submit"
-              >
-                :::Test Form::
-              </button>
-            </form>
-          </div>
+
           {isLoading && <div className={style.modal_loader}>loading...</div>}
           <div className={style.modal_cards_list}>
             <ListCard

@@ -7,15 +7,25 @@ export const dynamic = "force-dynamic";
 export async function POST(req: NextRequest) {
   const cookieStore = cookies();
   const { searchParams } = new URL(req.url);
-  const userid = searchParams.get("userid");
+  const tradeid = searchParams.get("tradeid");
   const cards = searchParams.get("cards");
   const supabase = createRouteHandlerClient<Database>({
     cookies: () => cookieStore,
   });
+  console.log("query---->", tradeid, cards);
+
   // Check if we have a session
   const {
     data: { session },
   } = await supabase.auth.getSession();
+  if (session) {
+    const data = await supabase.from("traders_cards").upsert({
+      id: tradeid,
+      user_2: session.user.id,
+      cards_user_2: JSON.parse(cards as string),
+    });
+    console.log("data---->", data);
+  }
   ///si la session es igual a el userID es para modificar el trade de el userId que es el usuario que envia los datos
   /* if (session?.user.id == userid) {
     //test busqueda de LOS TRADERS
@@ -37,7 +47,7 @@ export async function POST(req: NextRequest) {
     });
   } */
   ///si el userid no es el mismo que el de la sesion creo un trade para la sesion y el userid que serian los dos users
-  if (session) {
+  /* if (session) {
     const { error } = await supabase.from("traders_cards").upsert({
       user_1: session.user.id,
       user_2: userid,
@@ -48,7 +58,7 @@ export async function POST(req: NextRequest) {
     console.log("creando trader");
 
     if (error) throw error;
-  }
+  } */
 
   return NextResponse.redirect(new URL("/exchange", req.url), {
     status: 302,

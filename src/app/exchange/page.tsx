@@ -5,7 +5,7 @@ import SelectUser from "./selectUser";
 import { redirect } from "next/navigation";
 
 export const dynamic = "force-dynamic";
-export default async function Account() {
+export default async function Exchange() {
   const supabase = createServerComponentClient<Database>({ cookies });
 
   const {

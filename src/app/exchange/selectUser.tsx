@@ -27,6 +27,7 @@ const SelectUser = ({ session }: { session: Session | null }) => {
   const [dataTraders, setDataTraders] = useState([] as any);
   const [loadingUsers, setLoadingUsers] = useState(false);
   const [loadingNotification, setLoadingNotification] = useState(false);
+  const [tradeId, setTradeId] = useState(" ");
   const user = session?.user;
   const { data } = useGetNotificationTrader(user?.id);
 
@@ -55,6 +56,7 @@ const SelectUser = ({ session }: { session: Session | null }) => {
       <ModalSelectCards
         session={session}
         profile={profile}
+        tradeId={tradeId}
         onCloseModal={() => setModalVisible(false)}
       />
     );
@@ -76,6 +78,12 @@ const SelectUser = ({ session }: { session: Session | null }) => {
                 trader={trader}
                 key={index}
                 session={session}
+                notificationSelectCart={(data: any) => {
+                  console.log("desde el padre", data);
+                  setUserSelected(data.userId);
+                  setModalVisible(true);
+                  setTradeId(data.traderId);
+                }}
               />
             ))
           : null}
