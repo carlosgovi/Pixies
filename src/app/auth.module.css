@@ -17,7 +17,7 @@
   min-height: 800px;
   height: 60vw;
   padding: 40px;
-  background-image: url("./assets/icons/cardBackground.png");
+  background-image: url("./assets/icons/cardBackground.webp");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -73,7 +73,7 @@
 .button {
   font-size: 0.8rem;
   filter: drop-shadow(0px 0px 10px black);
-  background-image: url("./assets/icons/menuButtonBackground.png");
+  background-image: url("./assets/icons/menuButtonBackground.webp");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;

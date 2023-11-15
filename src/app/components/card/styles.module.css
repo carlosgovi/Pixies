@@ -13,7 +13,7 @@
   padding: 10px;
   border-radius: 5px;
 
-  background-image: url("../../assets/icons/cardBackground.png");
+  background-image: url("../../assets/icons/cardBackground.webp");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -156,7 +156,7 @@
   .rare_conteiner {
     padding: 10px;
     border-radius: 5px;
-    background-image: url("../../assets/icons/cardBackground.png");
+    background-image: url("../../assets/icons/cardBackground.webp");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;

@@ -20,7 +20,7 @@
   min-height: 200px;
   height: 30vw;
   padding: 40px;
-  background-image: url("../assets/icons/navBarBackground.png");
+  background-image: url("../assets/icons/navBarBackground.webp");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -60,7 +60,7 @@
 }
 
 .button_container {
-  background-image: url("../assets/icons/inputAccountBackground.png");
+  background-image: url("../assets/icons/inputAccountBackground.webp");
   width: 170px;
   height: 80px;
   background-size: contain;
@@ -82,7 +82,7 @@
   gap: 60px;
 }
 .user {
-  background-image: url("../assets/icons/inputAccountBackground.png");
+  background-image: url("../assets/icons/inputAccountBackground.webp");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;

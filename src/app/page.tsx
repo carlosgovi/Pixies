@@ -9,7 +9,7 @@ const press_Start_2P = Press_Start_2P({
 export default function Home() {
   return (
     <div
-      className={press_Start_2P.className}
+      className={`${press_Start_2P.className} antialiased`}
       style={{ backgroundColor: "#163135" }}
     >
       <AuthForm />
