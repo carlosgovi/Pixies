@@ -30,10 +30,8 @@ const NotificationTrade = ({
   const { refetch } = useGetNotificationTrader(session?.user.id);
   const checkBoxNotifi = useCheckNotificationTrade;
 
-  async function handleCheckbox(event: React.ChangeEvent<HTMLInputElement>) {
-    console.log("CHANGE------>", event.target.checked);
-
-    const check = event.target.checked;
+  async function handleCheckbox() {
+    const check = true;
     if (session?.user.id == userOne?.id) {
       try {
         fetch(
@@ -95,6 +93,7 @@ const NotificationTrade = ({
           });
         }
       }
+      console.log("TRADER--------------->>>", trader);
 
       if (user == session?.user.id) {
         if (user == userTwo?.id && trader?.cards_user_2.length === 0) {
@@ -106,7 +105,7 @@ const NotificationTrade = ({
       }
     };
   }
-  console.log("los datos de cada notificacion", trader);
+  console.log("los datos de cada notificacion de trade", trader);
 
   function handlerStateTrade() {
     if (trader._status === "pending") {
@@ -181,7 +180,7 @@ const NotificationTrade = ({
           <div className={style.container_checkbox}>
             <div className={style.checkbox}>
               <input
-                onChange={(e) => handleCheckbox(e)}
+                onClick={handleCheckbox}
                 style={{ width: "30px", height: "30px" }}
                 className="checkbox"
                 type="checkbox"
@@ -191,7 +190,7 @@ const NotificationTrade = ({
             </div>
             <div className={style.checkbox}>
               <input
-                onChange={(e) => handleCheckbox(e)}
+                onClick={handleCheckbox}
                 style={{ width: "30px", height: "30px" }}
                 className="checkbox"
                 type="checkbox"

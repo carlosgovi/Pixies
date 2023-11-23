@@ -42,6 +42,7 @@ export async function POST(req: NextRequest) {
       user_1: session.user.id,
       user_2: userid,
       cards_user_1: JSON.parse(cards as string),
+      cards_user_2: JSON.parse("[]"),
       _status: "pending",
       updated_at: new Date().toISOString(),
     });
