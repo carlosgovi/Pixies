@@ -35,7 +35,7 @@ const NotificationTrade = ({
     if (session?.user.id == userOne?.id) {
       try {
         fetch(
-          `http://localhost:3000/exchange/trade-check?check=${check}&tradeid=${trader.id}&usernumber=1`,
+          `${process.env.URL}/exchange/trade-check?check=${check}&tradeid=${trader.id}&usernumber=1`,
           {
             method: "POST",
             body: JSON.stringify({}),
